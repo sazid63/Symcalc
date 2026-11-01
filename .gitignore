@@ -40,3 +40,8 @@ audits/audit_logger.py
 audits/continuous_audit.py
 audits/dashboard.py
 audits/notifications.py
+
+# Audit logs and status files
+audits/audit_log.json
+audits/audit_status.json
+audits/notifications.log
