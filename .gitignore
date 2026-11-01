@@ -28,3 +28,15 @@ htmlcov/
 .PySide6/
 build/
 dist/
+
+# Backup files
+*.backup
+
+# Freebuff project tracking
+.freebuff/
+
+# Audit system utilities (keep only core 10 audit loops)
+audits/audit_logger.py
+audits/continuous_audit.py
+audits/dashboard.py
+audits/notifications.py
