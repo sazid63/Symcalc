@@ -2,33 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#08090d">
+    <meta name="description" content="University-level calculus problem solver with step-by-step solutions">
     <title>∂ Calculas — University Calculus Solver</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Preconnect to font CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for math rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="app-header">
+    <header class="app-header" id="app-header">
         <div class="logo">
+            <button class="btn-icon mobile-menu-btn" id="mobile-menu-btn" title="Toggle menu" aria-label="Toggle sidebar" hidden>
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            </button>
             <span class="logo-symbol">∂</span>
             <div class="logo-text">
                 <h1>Calculas</h1>
-                <p>University-level calculus problem solver</p>
+                <p>University-level calculus solver</p>
             </div>
         </div>
         <div class="header-actions">
-            <button id="history-toggle" class="btn-icon" title="History">
+            <button id="history-toggle" class="btn-icon" title="History" aria-label="Toggle history">
                 <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 1 1 7 7 6.9 6.9 0 0 1-4.95-2.05l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
             </button>
-            <button id="help-toggle" class="btn-icon" title="Help">
+            <button id="help-toggle" class="btn-icon" title="Help" aria-label="Open help">
                 <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26A2 2 0 0 0 12 8a2 2 0 1 0-2 2H8a4 4 0 1 1 7.07 2.75z"/></svg>
             </button>
         </div>
     </header>
 
     <div class="layout">
+        <!-- Sidebar overlay for mobile -->
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-group">
                 <h3>Single Variable</h3>
@@ -160,10 +176,10 @@
                     <h2 id="op-title">Derivative</h2>
                     <p id="op-subtitle">Compute the derivative of a function</p>
                 </div>
-                <form id="calc-form" class="calc-form">
+                <form id="calc-form" class="calc-form" autocomplete="off">
                     <div class="form-field" id="field-expression">
-                        <label for="input-expression">f(x)</label>
-                        <textarea id="input-expression" rows="3" placeholder="e.g.  x^3*sin(2*x) + exp(-x^2)" spellcheck="false" required></textarea>
+                        <label for="input-expression">Expression f(x)</label>
+                        <textarea id="input-expression" rows="3" placeholder="e.g. x^3*sin(2*x) + exp(-x^2)" spellcheck="false" required aria-label="Mathematical expression"></textarea>
                     </div>
                     <div id="extra-fields" class="form-row"></div>
                     <div class="form-actions">
@@ -182,13 +198,13 @@
                 <div class="result-header">
                     <h3>Result</h3>
                     <div class="result-actions">
-                        <button class="btn-copy" id="copy-btn" title="Copy result">
+                        <button class="btn-copy" id="copy-btn" title="Copy result" aria-label="Copy result">
                             <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
-                            Copy
+                            <span>Copy</span>
                         </button>
-                        <button class="btn-copy" id="copy-latex-btn" title="Copy LaTeX">
+                        <button class="btn-copy" id="copy-latex-btn" title="Copy LaTeX" aria-label="Copy LaTeX">
                             <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-                            LaTeX
+                            <span>LaTeX</span>
                         </button>
                     </div>
                 </div>
@@ -214,7 +230,7 @@
     <aside class="drawer" id="history-drawer" hidden>
         <div class="drawer-header">
             <h3>History</h3>
-            <button id="history-clear" class="btn-icon" title="Clear history">
+            <button id="history-clear" class="btn-icon" title="Clear history" aria-label="Clear history">
                 <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
             </button>
         </div>
@@ -223,10 +239,10 @@
 
     <!-- Help modal -->
     <div class="modal-backdrop" id="help-modal" hidden>
-        <div class="modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
             <div class="modal-header">
-                <h3>How to use Calculas</h3>
-                <button class="btn-icon modal-close" data-close>✕</button>
+                <h3 id="help-title">How to use Calculas</h3>
+                <button class="btn-icon modal-close" data-close aria-label="Close help">✕</button>
             </div>
             <div class="modal-body">
                 <h4>Input syntax</h4>
@@ -247,9 +263,18 @@
                 <p>For curl/divergence, enter each component in its own field, e.g. F = (−y, x, 0) → fields: <code>-y</code>, <code>x</code>, <code>0</code>.</p>
                 <h4>Supported operations</h4>
                 <p>Derivatives, integrals (definite/improper/multiple), limits, Taylor series, ODEs, gradient, divergence, curl, Laplacian, Hessian, critical points, tangent lines, arc length, volumes/surfaces of revolution, residues, Fourier series, Laplace transforms and inverses.</p>
+                <h4>Keyboard shortcuts</h4>
+                <ul class="help-list">
+                    <li><code>Ctrl/Cmd + Enter</code> — Solve current problem</li>
+                    <li><code>Ctrl/Cmd + K</code> — Focus expression input</li>
+                    <li><code>Escape</code> — Close modals/drawers</li>
+                </ul>
             </div>
         </div>
     </div>
+
+    <!-- Toast notifications container -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <script src="app.js"></script>
 </body>
