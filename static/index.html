@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>∂ Calculas — University Calculus Solver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <span class="logo-symbol">∂</span>
+            <div class="logo-text">
+                <h1>Calculas</h1>
+                <p>University-level calculus problem solver</p>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button id="history-toggle" class="btn-icon" title="History">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6a7 7 0 1 1 7 7 6.9 6.9 0 0 1-4.95-2.05l-1.42 1.42A8.95 8.95 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+            </button>
+            <button id="help-toggle" class="btn-icon" title="Help">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 17h-2v-2h2v2zm2.07-7.75-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26A2 2 0 0 0 12 8a2 2 0 1 0-2 2H8a4 4 0 1 1 7.07 2.75z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-group">
+                <h3>Single Variable</h3>
+                <button class="op-btn active" data-op="derivative">
+                    <span class="op-icon">d/dx</span>
+                    <span class="op-name">Derivative</span>
+                    <span class="op-desc">Differentiation</span>
+                </button>
+                <button class="op-btn" data-op="integral">
+                    <span class="op-icon">∫</span>
+                    <span class="op-name">Integral</span>
+                    <span class="op-desc">Indefinite & definite</span>
+                </button>
+                <button class="op-btn" data-op="limit">
+                    <span class="op-icon">lim</span>
+                    <span class="op-name">Limit</span>
+                    <span class="op-desc">Two-sided, one-sided, ∞</span>
+                </button>
+                <button class="op-btn" data-op="series">
+                    <span class="op-icon">Σ</span>
+                    <span class="op-name">Series Expansion</span>
+                    <span class="op-desc">Taylor / Maclaurin</span>
+                </button>
+                <button class="op-btn" data-op="tangent_line">
+                    <span class="op-icon">⟋</span>
+                    <span class="op-name">Tangent Line</span>
+                    <span class="op-desc">Tangent at a point</span>
+                </button>
+                <button class="op-btn" data-op="arc_length">
+                    <span class="op-icon">∫⌒</span>
+                    <span class="op-name">Arc Length</span>
+                    <span class="op-desc">Curve length</span>
+                </button>
+                <button class="op-btn" data-op="volume_revolution">
+                    <span class="op-icon">◉</span>
+                    <span class="op-name">Solid of Revolution</span>
+                    <span class="op-desc">Volume (disc/shell)</span>
+                </button>
+                <button class="op-btn" data-op="improper_integral">
+                    <span class="op-icon">∫∞</span>
+                    <span class="op-name">Improper Integral</span>
+                    <span class="op-desc">Infinite bounds</span>
+                </button>
+            </div>
+            <div class="sidebar-group">
+                <h3>Multi-Variable</h3>
+                <button class="op-btn" data-op="partial_derivative">
+                    <span class="op-icon">∂</span>
+                    <span class="op-name">Partial Derivative</span>
+                    <span class="op-desc">∂/∂x, ∂²/∂x∂y…</span>
+                </button>
+                <button class="op-btn" data-op="gradient">
+                    <span class="op-icon">∇</span>
+                    <span class="op-name">Gradient</span>
+                    <span class="op-desc">∇f vector field</span>
+                </button>
+                <button class="op-btn" data-op="hessian">
+                    <span class="op-icon">H</span>
+                    <span class="op-name">Hessian Matrix</span>
+                    <span class="op-desc">Second derivatives</span>
+                </button>
+                <button class="op-btn" data-op="critical_points">
+                    <span class="op-icon">✳</span>
+                    <span class="op-name">Critical Points</span>
+                    <span class="op-desc">Solve ∇f = 0</span>
+                </button>
+                <button class="op-btn" data-op="laplacian">
+                    <span class="op-icon">∇²</span>
+                    <span class="op-name">Laplacian</span>
+                    <span class="op-desc">∇²f</span>
+                </button>
+            </div>
+            <div class="sidebar-group">
+                <h3>Vector Calculus</h3>
+                <button class="op-btn" data-op="divergence">
+                    <span class="op-icon">∇·</span>
+                    <span class="op-name">Divergence</span>
+                    <span class="op-desc">∇·F</span>
+                </button>
+                <button class="op-btn" data-op="curl">
+                    <span class="op-icon">∇×</span>
+                    <span class="op-name">Curl</span>
+                    <span class="op-desc">∇×F (3D)</span>
+                </button>
+                <button class="op-btn" data-op="multiple_integral">
+                    <span class="op-icon">∬</span>
+                    <span class="op-name">Multiple Integral</span>
+                    <span class="op-desc">Double & triple</span>
+                </button>
+                <button class="op-btn" data-op="surface_area">
+                    <span class="op-icon">∫²</span>
+                    <span class="op-name">Surface Area</span>
+                    <span class="op-desc">Surface of revolution</span>
+                </button>
+            </div>
+            <div class="sidebar-group">
+                <h3>Advanced</h3>
+                <button class="op-btn" data-op="ode">
+                    <span class="op-icon">dy/dx</span>
+                    <span class="op-name">Differential Equation</span>
+                    <span class="op-desc">ODE solver</span>
+                </button>
+                <button class="op-btn" data-op="residue">
+                    <span class="op-icon">Res</span>
+                    <span class="op-name">Residue</span>
+                    <span class="op-desc">Complex analysis</span>
+                </button>
+                <button class="op-btn" data-op="fourier_series">
+                    <span class="op-icon">F</span>
+                    <span class="op-name">Fourier Series</span>
+                    <span class="op-desc">a₀, aₙ, bₙ</span>
+                </button>
+                <button class="op-btn" data-op="laplace">
+                    <span class="op-icon">ℒ</span>
+                    <span class="op-name">Laplace Transform</span>
+                    <span class="op-desc">F(s) = ℒ{f(t)}</span>
+                </button>
+                <button class="op-btn" data-op="inverse_laplace">
+                    <span class="op-icon">ℒ⁻¹</span>
+                    <span class="op-name">Inverse Laplace</span>
+                    <span class="op-desc">f(t) = ℒ⁻¹{F(s)}</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-panel">
+            <div id="operation-panel">
+                <div class="op-header">
+                    <h2 id="op-title">Derivative</h2>
+                    <p id="op-subtitle">Compute the derivative of a function</p>
+                </div>
+                <form id="calc-form" class="calc-form">
+                    <div class="form-field" id="field-expression">
+                        <label for="input-expression">f(x)</label>
+                        <textarea id="input-expression" rows="3" placeholder="e.g.  x^3*sin(2*x) + exp(-x^2)" spellcheck="false" required></textarea>
+                    </div>
+                    <div id="extra-fields" class="form-row"></div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="solve-btn">
+                            <span class="btn-label">Solve</span>
+                            <span class="btn-spinner" hidden></span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="clear-btn">Clear</button>
+                        <button type="button" class="btn-secondary" id="examples-btn">Show examples</button>
+                    </div>
+                    <div id="examples-container" class="examples-container" hidden></div>
+                </form>
+            </div>
+
+            <div id="result-panel" class="result-panel" hidden>
+                <div class="result-header">
+                    <h3>Result</h3>
+                    <div class="result-actions">
+                        <button class="btn-copy" id="copy-btn" title="Copy result">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/></svg>
+                            Copy
+                        </button>
+                        <button class="btn-copy" id="copy-latex-btn" title="Copy LaTeX">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            LaTeX
+                        </button>
+                    </div>
+                </div>
+                <div id="result-math" class="result-math"></div>
+                <div id="result-plain" class="result-plain" hidden></div>
+                <div id="result-steps" class="result-steps" hidden>
+                    <h4>Steps</h4>
+                    <ol id="steps-list"></ol>
+                </div>
+            </div>
+
+            <div id="error-panel" class="error-panel" hidden>
+                <div class="error-icon">⚠</div>
+                <div class="error-content">
+                    <h3>Could not compute</h3>
+                    <p id="error-message"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- History drawer -->
+    <aside class="drawer" id="history-drawer" hidden>
+        <div class="drawer-header">
+            <h3>History</h3>
+            <button id="history-clear" class="btn-icon" title="Clear history">
+                <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+    </aside>
+
+    <!-- Help modal -->
+    <div class="modal-backdrop" id="help-modal" hidden>
+        <div class="modal">
+            <div class="modal-header">
+                <h3>How to use Calculas</h3>
+                <button class="btn-icon modal-close" data-close>✕</button>
+            </div>
+            <div class="modal-body">
+                <h4>Input syntax</h4>
+                <ul class="help-list">
+                    <li>Powers: <code>x^2</code>, <code>(1+x)^10</code></li>
+                    <li>Functions: <code>sin(x)</code>, <code>cos(x)</code>, <code>tan(x)</code>, <code>log(x)</code> (natural log), <code>log2(x)</code>, <code>log10(x)</code>, <code>exp(x)</code>, <code>sqrt(x)</code>, <code>abs(x)</code>, <code>asin(x)</code>, <code>atan(x)</code>, <code>sinh(x)</code>…</li>
+                    <li>Constants: <code>e</code>, <code>pi</code>, <code>oo</code> (infinity), <code>I</code> (imaginary unit)</li>
+                    <li>Variables: <code>x y z t</code> plus parameters <code>a b c n</code></li>
+                </ul>
+                <h4>ODE input format</h4>
+                <p>For differential equations, write the equation in the form <code>Eq(Derivative(y(x), x, n), rest)</code>, e.g.:</p>
+                <ul class="help-list">
+                    <li>Simple: <code>Eq(Derivative(y(x), x), y(x))</code> for y′ = y</li>
+                    <li>Second order: <code>Eq(Derivative(y(x), x, 2) + y(x), 0)</code> for y″ + y = 0</li>
+                    <li>Use <code>D(y(x), x)</code> shorthand: <code>Eq(D(y(x), x), x*y(x))</code></li>
+                </ul>
+                <h4>Vector fields</h4>
+                <p>For curl/divergence, enter each component in its own field, e.g. F = (−y, x, 0) → fields: <code>-y</code>, <code>x</code>, <code>0</code>.</p>
+                <h4>Supported operations</h4>
+                <p>Derivatives, integrals (definite/improper/multiple), limits, Taylor series, ODEs, gradient, divergence, curl, Laplacian, Hessian, critical points, tangent lines, arc length, volumes/surfaces of revolution, residues, Fourier series, Laplace transforms and inverses.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

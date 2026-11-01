@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.Python
+
+# Virtual environments
+env/
+venv/
+.venv/
+env.bak/
+venv.bak/
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# PySide6 / Qt build artifacts
+.PySide6/
+build/
+dist/
